@@ -19,18 +19,29 @@ public class ErrorController {
     public ResponseEntity<ApiErrorResponse> handleException(Exception ex) {
         log.error("Caught exception", ex);
         ApiErrorResponse error = ApiErrorResponse.builder()
-            .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-            .message("An unexpected error occured")
-            .build();
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .message("An unexpected error occured")
+                .build();
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiErrorResponse> HandleIllegalArgumentException(
-        IllegalArgumentException ex) {
-            ApiErrorResponse error = ApiErrorResponse.builder()
+            IllegalArgumentException ex) {
+        ApiErrorResponse error = ApiErrorResponse.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
                 .message(ex.getMessage())
                 .build();
-            return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ApiErrorResponse> HandleIllegalStateException(
+            IllegalStateException ex) {
+        ApiErrorResponse error = ApiErrorResponse.builder()
+                .status(HttpStatus.CONFLICT.value())
+                .message(ex.getMessage())
+                .build();
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
 }

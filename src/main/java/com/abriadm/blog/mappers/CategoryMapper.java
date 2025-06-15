@@ -1,12 +1,12 @@
 package com.abriadm.blog.mappers;
 
 import java.util.List;
-// import java.util.Set;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
+// import org.mapstruct.factory.Mappers;
 
 import com.abriadm.blog.domain.PostStatus;
 import com.abriadm.blog.domain.dtos.CategoryDto;
